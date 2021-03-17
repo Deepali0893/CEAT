@@ -1,0 +1,81 @@
+<aura:component implements="lightningsnapin:prechatUI" description="Sample custom pre-chat component for Embedded Chat. Implemented using Aura.">    
+    <!-- Pre-chat field components to render -->
+    <aura:attribute name="prechatFieldComponents" type="List" description="An array of objects representing the pre-chat fields specified in pre-chat setup."/>
+    <aura:attribute name="invalidFirstName" type="boolean"/>
+    <aura:attribute name="invalidLastName" type="boolean"/>
+    <aura:attribute name="invalidPhone" type="boolean"/>
+    <aura:attribute name="invalidEmail" type="boolean"/>
+    <aura:attribute name="consent" type="List"/>
+    <!-- Handler for when this component is initialized -->
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}" />
+    
+    <!-- For Aura performance -->
+    <aura:locator target="startButton" description="Pre-chat form submit button."/>
+    
+    <!-- Contains methods for getting pre-chat fields, starting a chat, and validating fields -->
+    <lightningsnapin:prechatAPI aura:id="prechatAPI"/>
+    
+    <!-- PreChat Form -->
+    <div class = "chatUI" style="height: 100%">
+        <div class="formCont">
+            <div>
+                <img style="width:100%;height:100px" src="{!$Resource.Ceatlogo}"/>
+            </div>
+            <div class="slds-form-element">
+                <div class="slds-form--stacked fieldList">
+                    <div class="slds-form-element name uiInput">
+                        <div class="slds-form-element__control">
+                            {!v.prechatFieldComponents[0]}                    
+                        </div>
+                        <aura:if isTrue="{!v.invalidFirstName}">
+                        	<div class="slds-form-element__help chatLabel" style="color:red">
+                   			 	This Field is Required
+                        	</div>
+            			</aura:if>
+                    </div>
+                    <div class="slds-form-element name uiInput" style="margin-left:12px">
+                        <div class="slds-form-element__control">
+                            {!v.prechatFieldComponents[1]}                    
+                        </div>
+                        <aura:if isTrue="{!v.invalidLastName}">
+                        	<div class="slds-form-element__help chatLabel" style="color:red">
+                   			 	This Field is Required
+                        	</div>
+            			</aura:if>
+                    </div>
+                    <div class="slds-form-element uiInput">
+                        <div class="slds-form-element__control">
+                            {!v.prechatFieldComponents[2]}                    
+                        </div>
+                        <aura:if isTrue="{!v.invalidPhone}">
+                        	<div class="slds-form-element__help chatLabel" style="color:red">
+                   			 	Enter Valid 10 digit Phone number
+                        	</div>
+            			</aura:if>
+                    </div>
+                    <div class="slds-form-element uiInput">
+                        <div class="slds-form-element__control">
+                            {!v.prechatFieldComponents[3]}                    
+                        </div>
+                         <aura:if isTrue="{!v.invalidEmail}">
+                        	<div class="slds-form-element__help chatLabel" style="color:red">
+                   			 	Enter valid Email
+                        	</div>
+            			</aura:if>
+                    </div>
+                    <div class="slds-form-element uiInput">
+                        <div class="slds-form-element__control">
+                            {!v.prechatFieldComponents[4]}                    
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="buttonWrap">
+            <lightning:button class="startChatBtn" aura:id="startButton" variant="brand" label="{!$Label.LiveAgentPrechat.StartChat}" title="Primary action" onclick="{!c.handleStartButtonClick}"></lightning:button>
+        </div>
+        
+    </div>
+    
+</aura:component>
