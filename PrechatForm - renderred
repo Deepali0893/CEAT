@@ -1,0 +1,9 @@
+({
+    afterRender: function (objComponent, objHelper) {
+        this.superAfterRender();
+        var objElement = objComponent.find("prechatField");
+        setTimeout(function () { 
+            objElement[0].focus(); 
+        }, 1);
+    }
+})
